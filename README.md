@@ -1,2 +1,2 @@
 # bf-in-css
-Brainfuck Compiler Written Exclusivly with CSS &amp; HTML
+Brainfuck Compiler Written Exclusively with CSS &amp; HTML
