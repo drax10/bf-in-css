@@ -1,0 +1,38 @@
+// Start a counter to keep track of the scope we're in. Use roman numerals starting at 1 and count
+// by 10s. This way the character count increases/decreases every increment for 3 levels.
+body {
+  counter-reset: bracket-level 1;
+  list-style: decimal-leading-zero;
+}
+
+@for $indent-level from 0 through 3 {
+  [name="indent"][id$="#{$indent-level}"]:checked~.trigger:not(.global) {
+    margin-left: -1 * $trigger-width * ($indent-level );
+  }
+  [for="i#{$indent-level}"]::before {
+    left: -1 * $trigger-width * ($indent-level);
+    margin-right: -1 * $trigger-width * ($indent-level);
+  }
+}
+.trigger label[for^="i"] {
+  line-height: $trigger-height;
+  max-width: $trigger-width;
+  width: auto;
+  overflow: hidden;
+  // XXX Should this be somewhere else?
+  background: #ccc;
+}
+
+// .cmd + .trigger { display: block; }
+.cmd + .trigger [for^="i"]::before {
+  position: relative;
+  font-size: 0;
+  content: counter(bracket-level, lower-roman);
+  letter-spacing: $trigger-width;
+  display: block;
+  height: $trigger-height;
+}
+// Open Bracket
+[id^="v"][id$="-1"]:checked { counter-increment: bracket-level 10; }
+// Close Bracket
+[id^="v"][id$="-5"]:checked { counter-increment: bracket-level -10; }

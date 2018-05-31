@@ -1,0 +1,27 @@
+body {
+  font-family: monospace;
+}
+
+// `display: none;` messes up some mechanics used like selecting inputs with contenteditable
+%hide {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+%character {
+  width: $character-size;
+  line-height: $character-size;
+  font-family: $font-family;
+  text-align: center;
+  vertical-align: top;
+  display: inline-block;
+  margin: -1px -3px;
+  border: solid 1px #f3f3f3;
+}
+%active-character {
+  background: #88f;
+}
+
+@import 'style/memory-display';
+@import 'style/command-picker';

@@ -1,0 +1,30 @@
+// Define the location of the trigger
+.trigger {
+// Hide all triggers by default except for indents
+  label:not([for^="i"]) { display: none; }
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  width: 100%;
+  &.right {
+    left: auto;
+    right: 40px;
+  }
+  .next { background: green; }
+  .prev { background: red; }
+  label {
+    display: inline-block;
+    width: $trigger-width;
+    background: #cccccc;
+    &:not([for^="i"]) {
+      height: $trigger-height;
+    }
+  }
+}
+
+// Show memory actions at the top
+[name="p"] + .trigger { z-index: 3; }
+// Show all global actions above the commands
+.global.trigger       { z-index: 2; }
+// Show the commands/indent information below everything else
+.cmd + .trigger       { z-index: 1; }

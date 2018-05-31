@@ -1,0 +1,9 @@
+[name="p"]:checked +*+* { @extend %active-character; }
+[name="p"],[name="p_v"] { @extend %hide; }
+[name="p"]+*+*{
+  @extend %character;
+  &:before {
+    content: '0';
+  }
+}
+[name="p_v"]:checked+*+*+*:before { content: '1'; }

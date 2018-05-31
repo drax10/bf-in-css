@@ -1,0 +1,37 @@
+// Hide the line radio boxes
+input[name="l"] {@extend %hide;}
+
+%selected-cmd {
+  display: block !important;
+  background: #cccccc;
+}
+input[name^="cmd"] {
+  @extend %hide;
+
+  // Display the selected command in the picker
+  &:checked{
+    +*+*+*+*+*+ .cmd :nth-child(1) {@extend %selected-cmd;}
+    +*+*+*+*+   .cmd :nth-child(2) {@extend %selected-cmd;}
+    +*+*+*+     .cmd :nth-child(3) {@extend %selected-cmd;}
+    +*+*+       .cmd :nth-child(4) {@extend %selected-cmd;}
+    +*+         .cmd :nth-child(5) {@extend %selected-cmd;}
+    +           .cmd :nth-child(6) {@extend %selected-cmd;}
+  }
+}
+input[name="l"]:checked+*+*+*+*+*+*+.cmd { @extend %active-character; }
+
+.cmd {
+  @extend %character;
+  label { display: none; }
+  // Don't highlight the selected command if we're not selecting one
+  &:not(:hover) label { background: transparent !important; }
+  &:hover {
+    z-index: 1;
+    margin-bottom: -6 * $character-size;
+    label {
+      display: block;
+      background: #ffffff;
+      &:hover{ background: #eeeeee; }
+    }
+  }
+}

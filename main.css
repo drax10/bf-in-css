@@ -1,0 +1,272 @@
+body {
+  font-family: monospace;
+}
+
+input[name^=cmd], input[name=l], [name=p], [name=p_v] {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.cmd, [name=p] + * + * {
+  width: 24px;
+  line-height: 24px;
+  font-family: "Roboto Mono";
+  text-align: center;
+  vertical-align: top;
+  display: inline-block;
+  margin: -1px -3px;
+  border: solid 1px #f3f3f3;
+}
+
+input[name=l]:checked + * + * + * + * + * + * + .cmd, [name=p]:checked + * + * {
+  background: #88f;
+}
+
+[name=p] + * + *:before {
+  content: "0";
+}
+
+[name=p_v]:checked + * + * + *:before {
+  content: "1";
+}
+
+input[name^=cmd]:checked + .cmd :nth-child(6), input[name^=cmd]:checked + * + .cmd :nth-child(5), input[name^=cmd]:checked + * + * + .cmd :nth-child(4), input[name^=cmd]:checked + * + * + * + .cmd :nth-child(3), input[name^=cmd]:checked + * + * + * + * + .cmd :nth-child(2), input[name^=cmd]:checked + * + * + * + * + * + .cmd :nth-child(1) {
+  display: block !important;
+  background: #cccccc;
+}
+
+.cmd label {
+  display: none;
+}
+.cmd:not(:hover) label {
+  background: transparent !important;
+}
+.cmd:hover {
+  z-index: 1;
+  margin-bottom: -144px;
+}
+.cmd:hover label {
+  display: block;
+  background: #ffffff;
+}
+.cmd:hover label:hover {
+  background: #eeeeee;
+}
+
+.trigger {
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  width: 100%;
+}
+.trigger label:not([for^=i]) {
+  display: none;
+}
+.trigger.right {
+  left: auto;
+  right: 40px;
+}
+.trigger .next {
+  background: green;
+}
+.trigger .prev {
+  background: red;
+}
+.trigger label {
+  display: inline-block;
+  width: 100px;
+  background: #cccccc;
+}
+.trigger label:not([for^=i]) {
+  height: 40px;
+}
+
+[name=p] + .trigger {
+  z-index: 3;
+}
+
+.global.trigger {
+  z-index: 2;
+}
+
+.cmd + .trigger {
+  z-index: 1;
+}
+
+[name=l]:not(:checked) + * + * + * + * + * + * + * + .trigger {
+  display: none;
+}
+
+[name=p]:not(:checked) + .trigger {
+  display: none;
+}
+
+body {
+  counter-reset: bracket-level 1;
+  list-style: decimal-leading-zero;
+}
+
+[name=indent][id$="0"]:checked ~ .trigger:not(.global) {
+  margin-left: 0px;
+}
+
+[for=i0]::before {
+  left: 0px;
+  margin-right: 0px;
+}
+
+[name=indent][id$="1"]:checked ~ .trigger:not(.global) {
+  margin-left: -100px;
+}
+
+[for=i1]::before {
+  left: -100px;
+  margin-right: -100px;
+}
+
+[name=indent][id$="2"]:checked ~ .trigger:not(.global) {
+  margin-left: -200px;
+}
+
+[for=i2]::before {
+  left: -200px;
+  margin-right: -200px;
+}
+
+[name=indent][id$="3"]:checked ~ .trigger:not(.global) {
+  margin-left: -300px;
+}
+
+[for=i3]::before {
+  left: -300px;
+  margin-right: -300px;
+}
+
+.trigger label[for^=i] {
+  line-height: 40px;
+  max-width: 100px;
+  width: auto;
+  overflow: hidden;
+  background: #ccc;
+}
+
+.cmd + .trigger [for^=i]::before {
+  position: relative;
+  font-size: 0;
+  content: counter(bracket-level, lower-roman);
+  letter-spacing: 100px;
+  display: block;
+  height: 40px;
+}
+
+[id^=v][id$="-1"]:checked {
+  counter-increment: bracket-level 10;
+}
+
+[id^=v][id$="-5"]:checked {
+  counter-increment: bracket-level -10;
+}
+
+.trigger label:hover {
+  display: inline-block !important;
+}
+
+[contenteditable]:not([name=l]):focus ~ .trigger .next {
+  display: inline-block;
+}
+
+[name=l]:focus ~ .trigger .memory-noop {
+  display: inline-block;
+}
+
+#mt0:focus ~ .trigger.global {
+  display: none;
+}
+
+/**
+ * When selected command is $symbol:
+ *  First, select the memory trigger radio button with the label with class of $action-class
+ *  Second, when the memory trigger is focused on, show the label to preform the memory action
+ *  Finally, while the memory trigger is checked, dont show the option to check it.
+ */
+#mt1:not(:focus) ~ [name=l]:checked + * + * + input[name^=cmd]:checked + * + * + * + .cmd ~ .trigger .memory-prev {
+  display: inline-block;
+}
+
+#mt1:focus ~ .trigger .prev-p {
+  display: inline-block;
+}
+
+#mt1:checked ~ .trigger .memory-prev {
+  display: none !important;
+}
+
+#mt2:not(:focus) ~ [name=l]:checked + * + * + * + input[name^=cmd]:checked + * + * + .cmd ~ .trigger .toggle {
+  display: inline-block;
+}
+
+#mt2:focus ~ .trigger .flip {
+  display: inline-block;
+}
+
+#mt2:checked ~ .trigger .toggle {
+  display: none !important;
+}
+
+#mt3:not(:focus) ~ [name=l]:checked + * + * + * + * + input[name^=cmd]:checked + * + .cmd ~ .trigger .memory-next {
+  display: inline-block;
+}
+
+#mt3:focus ~ .trigger .next-p {
+  display: inline-block;
+}
+
+#mt3:checked ~ .trigger .memory-next {
+  display: none !important;
+}
+
+[name=l]:focus ~ .trigger .memory-noop {
+  display: inline-block !important;
+}
+
+[name=p_v]:focus ~ .trigger .toggle, [name=p]:focus ~ .trigger .toggle {
+  display: none !important;
+}
+
+[name=p_v]:focus ~ .cmd + .trigger,
+[name=l]:active ~ .cmd + .trigger {
+  z-index: 4 !important;
+}
+
+[name=p_v]:checked + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger {
+  margin-left: -100px;
+}
+[name=p_v]:checked + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger .loop-indent {
+  display: inline-block;
+}
+
+[name=p_v] + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger .loop-exit {
+  display: inline-block;
+}
+[name=p_v] + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger .loop-indent {
+  display: none;
+}
+
+#ls0:focus ~ .trigger .next-p {
+  display: inline-block;
+}
+
+#ls1:checked ~ .trigger .loop-repeat {
+  display: none;
+}
+
+#ls2:checked ~ .trigger .loop-exit {
+  display: none;
+}
+
+#ls0:checked ~ .trigger .loop-indent {
+  display: none !important;
+}
+
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,86 @@
+// Only show the trigger for the current code line
+[name="l"]:not(:checked) +*+*+*+*+*+*+*+.trigger{ display: none; }
+// Only show the trigger for the current pointer
+[name="p"]:not(:checked)+.trigger { display: none; }
+
+// Brackets
+@import 'logic/brackets';
+
+// If we've just done something
+//   Continue on to the next action
+.trigger label:hover { display: inline-block !important;}
+[contenteditable]:not([name="l"]):focus ~ .trigger .next { display: inline-block;}
+
+// Every new action, reset the memory triggers
+[name="l"]:focus ~ .trigger .memory-noop { display: inline-block; }
+
+// On "noop", dont show any memory trigger actions
+#mt0:focus ~ .trigger.global { display: none; }
+
+@mixin symbol-is-active( $symbol ) {
+  & ~ [name="l"]:checked {
+    @if ($symbol == "[") { &+*+ input[name^="cmd"]:checked +*+*+*+*+ .cmd ~ .trigger { @content; }}
+    @if ($symbol == "<") { &+*+*+ input[name^="cmd"]:checked +*+*+*+ .cmd ~ .trigger { @content; }}
+    @if ($symbol == "+") { &+*+*+*+ input[name^="cmd"]:checked +*+*+ .cmd ~ .trigger { @content; }}
+    @if ($symbol == ">") { &+*+*+*+*+ input[name^="cmd"]:checked +*+ .cmd ~ .trigger { @content; }}
+    @if ($symbol == "]") { &+*+*+*+*+*+ input[name^="cmd"]:checked + .cmd ~ .trigger { @content; }}
+  }
+}
+
+/**
+ * When selected command is $symbol:
+ *  First, select the memory trigger radio button with the label with class of $action-class
+ *  Second, when the memory trigger is focused on, show the label to preform the memory action
+ *  Finally, while the memory trigger is checked, dont show the option to check it.
+ */
+@mixin memory-trigger( $symbol, $memory-trigger-id, $action-class, $command-class ) {
+  #{$memory-trigger-id}:not(:focus) {
+    @include symbol-is-active($symbol) {
+      #{$command-class} {display: inline-block;}
+    }
+  }
+  #{$memory-trigger-id}:focus ~ .trigger #{$action-class} {display: inline-block;}
+  #{$memory-trigger-id}:checked ~ .trigger #{$command-class} { display: none !important; }
+}
+@include memory-trigger("<", "#mt1", ".prev-p", ".memory-prev");
+@include memory-trigger("+", "#mt2", ".flip", ".toggle");
+@include memory-trigger(">", "#mt3", ".next-p", ".memory-next");
+
+// When we've just went to the next command, toggle noop back
+[name="l"]:focus ~ .trigger .memory-noop { display: inline-block !important; }
+
+// Hide toggle when pointer is updated
+[name="p_v"]:focus ~ .trigger,[name="p"]:focus ~ .trigger {
+  .toggle { display: none !important; }
+}
+
+// If you're pressing on the radio button to go next, keep the action trigger on top
+[name="p_v"]:focus ~ .cmd + .trigger,
+[name="l"]:active ~ .cmd + .trigger { z-index: 4 !important; }
+
+
+///////////////////////////////////////////////////////////////////
+// Bracket Stuff!
+///////////////////////////////////////////////////////////////////
+
+// pointer is true
+[name="p_v"]:checked+[name="p"]:checked ~
+[name="l"]:checked +*+ input[name^="cmd"]:checked +*+*+*+*+ .cmd ~ .trigger {
+  margin-left: -1 * $trigger-width;
+  .loop-indent { display: inline-block; }
+}
+
+// pointer is false
+[name="p_v"]+[name="p"]:checked ~
+[name="l"]:checked +*+ input[name^="cmd"]:checked +*+*+*+*+ .cmd ~ .trigger {
+  .loop-exit { display: inline-block; }
+  .loop-indent { display: none; }
+}
+
+// On "[", show the move right action
+#ls0:focus ~ .trigger .next-p { display: inline-block; }
+#ls1:checked ~ .trigger .loop-repeat { display: none; }
+#ls2:checked ~ .trigger .loop-exit { display: none; }
+
+// If "+" Memory Trigger is already checked, hide the trigger that shows it
+#ls0:checked ~ .trigger .loop-indent { display: none !important; }

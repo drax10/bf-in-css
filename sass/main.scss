@@ -1,0 +1,14 @@
+$font-family: "Roboto Mono";
+$character-size: 24px;
+
+$trigger-height: 40px;
+$trigger-width: 100px;
+
+// Make things pretty. Everything will still work if this is commented out.
+@import 'style';
+
+// Size & position of the "trigger".
+@import 'trigger';
+
+// Where the magic happens
+@import 'logic';
