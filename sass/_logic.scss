@@ -4,12 +4,17 @@
 [name="p"]:not(:checked)+.trigger { display: none; }
 
 // Brackets
+@import 'logic/indents';
 @import 'logic/brackets';
 
 // If we've just done something
 //   Continue on to the next action
-.trigger label:hover { display: inline-block !important;}
 [contenteditable]:not([name="l"]):focus ~ .trigger .next { display: inline-block;}
+
+// Since the :active, :focused and :checked attributes are what we use to show Commands
+// We have to keep commands around until after they are fully clicked and we can move on to showing
+// the next action
+.trigger label:hover { display: inline-block !important;}
 
 // Every new action, reset the memory triggers
 [name="l"]:focus ~ .trigger .memory-noop { display: inline-block; }
