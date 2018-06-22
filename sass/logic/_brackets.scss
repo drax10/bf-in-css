@@ -1,0 +1,32 @@
+// Active Memory Pointer
+[name="p_v"]:checked {
+  // Is equal to 0
+  &+ [name="p"]:not(:checked) {
+    @include if-symbol-is-active( "[" ) {
+      // If this is "[" set state to "Next Action"
+    }
+    @include if-symbol-is-active( "]" ) {
+      // If this is "]" indent left (continue going down)
+    }
+  }
+  // Is equal to 1
+  &+ [name="p"]:checked {
+    @include if-symbol-is-active( "[" ) {
+      // If this is "[" set state to -> Go Right
+    }
+    @include if-symbol-is-active( "]" ) {
+      // If this is "]" set state to -> "Previous Action"
+    }
+  }
+}
+// If State is "Next Action"
+//  Indents move to the next action
+
+// If State is "Previous Action"
+//  Indents move to the previous action
+
+// If Intent State is "Next Action" and is active
+//    Move to next action
+
+// If Intent State is "Previous Action" and is active
+//    Move to previous action

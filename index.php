@@ -24,7 +24,7 @@ $lines_of_code = 20;
         ?><label for="p<?= $pointer-1 ?>" class="prev-p"></label><?
         ?><label for="p<?= $pointer+1 ?>" class="next-p"></label><?
         ?><label for="p_v<?= $pointer ?>" class="flip"></label><?
-      ?>a</div>
+      ?></div>
       <div></div>
     <? } ?>
 
@@ -63,13 +63,14 @@ $lines_of_code = 20;
         <label for="v<?= $line ?>-5">]</label>
       </div>
       <div class="trigger"><?
+        ?><label for="i0"></label><?
         ?><label for="i1"></label><?
         ?><label for="i2"></label><?
         ?><label for="i3"></label><?
         ?><!-- Move Action --><?
         ?><label for="l<?= $line-1 ?>" class="prev"></label><?
         ?><label for="l<?= $line+1 ?>" class="next"></label><?
-      ?>b</div>
+      ?></div>
     <? } ?>
     <!-- Global actions -->
     <div class="trigger global"><?
@@ -80,6 +81,6 @@ $lines_of_code = 20;
       ?><label for="ls0" class="loop-indent"></label><?
       ?><label for="ls1" class="loop-repeat"></label><?
       ?><label for="ls2" class="loop-exit"></label><?
-    ?>c</div>
+    ?></div>
   </body>
 </html>

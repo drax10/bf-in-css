@@ -102,9 +102,19 @@ input[name^=cmd]:checked + .cmd :nth-child(6), input[name^=cmd]:checked + * + .c
   display: none;
 }
 
+/**
+ * Will apply style rules to trigger if the symbol given to mixin is currently active
+ * Must be called within another condition
+ * ex: #mt1:checked { @include if-symbol-is-active(">"){ ... }
+ */
+/**
+ * When selected command is $symbol:
+ *  First, select the memory trigger radio button with the label with class of $action-class
+ *  Second, when the memory trigger is focused on, show the label to preform the memory action
+ *  Finally, while the memory trigger is checked, dont show the option to check it.
+ */
 body {
   counter-reset: bracket-level 1;
-  list-style: decimal-leading-zero;
 }
 
 [name=indent][id$="0"]:checked ~ .trigger:not(.global) {
@@ -168,12 +178,12 @@ body {
   counter-increment: bracket-level -10;
 }
 
-.trigger label:hover {
-  display: inline-block !important;
-}
-
 [contenteditable]:not([name=l]):focus ~ .trigger .next {
   display: inline-block;
+}
+
+.trigger label:hover {
+  display: inline-block !important;
 }
 
 [name=l]:focus ~ .trigger .memory-noop {
@@ -184,12 +194,6 @@ body {
   display: none;
 }
 
-/**
- * When selected command is $symbol:
- *  First, select the memory trigger radio button with the label with class of $action-class
- *  Second, when the memory trigger is focused on, show the label to preform the memory action
- *  Finally, while the memory trigger is checked, dont show the option to check it.
- */
 #mt1:not(:focus) ~ [name=l]:checked + * + * + input[name^=cmd]:checked + * + * + * + .cmd ~ .trigger .memory-prev {
   display: inline-block;
 }
@@ -237,36 +241,6 @@ body {
 [name=p_v]:focus ~ .cmd + .trigger,
 [name=l]:active ~ .cmd + .trigger {
   z-index: 4 !important;
-}
-
-[name=p_v]:checked + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger {
-  margin-left: -100px;
-}
-[name=p_v]:checked + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger .loop-indent {
-  display: inline-block;
-}
-
-[name=p_v] + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger .loop-exit {
-  display: inline-block;
-}
-[name=p_v] + [name=p]:checked ~ [name=l]:checked + * + input[name^=cmd]:checked + * + * + * + * + .cmd ~ .trigger .loop-indent {
-  display: none;
-}
-
-#ls0:focus ~ .trigger .next-p {
-  display: inline-block;
-}
-
-#ls1:checked ~ .trigger .loop-repeat {
-  display: none;
-}
-
-#ls2:checked ~ .trigger .loop-exit {
-  display: none;
-}
-
-#ls0:checked ~ .trigger .loop-indent {
-  display: none !important;
 }
 
 /*# sourceMappingURL=main.css.map */

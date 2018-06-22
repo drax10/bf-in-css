@@ -4,7 +4,7 @@ $character-size: 24px;
 $trigger-height: 40px;
 $trigger-width: 100px;
 
-$indent = "[name=\"l\"]";
+$indent: "[name=\"l\"]";
 
 // Make things pretty. Everything will still work if this is commented out.
 @import 'style';
