@@ -1,10 +1,18 @@
 /**
+ * Use to call logic mixins without needing to fit them in a condition
+ */
+@mixin do {
+  #first-element { @content; }
+}
+
+/**
  * Will apply style rules to trigger if the symbol given to mixin is currently active
  * Must be called within another condition
  * ex: #mt1:checked { @include if-symbol-is-active(">"){ ... }
  */
 @mixin if-symbol-is-active( $symbol ) {
   & ~ [name="l"]:checked {
+    @if ($symbol == " ") { &+ input[name^="cmd"]:checked +*+*+*+*+*+ .cmd ~ .trigger { @content; }}
     @if ($symbol == "[") { &+*+ input[name^="cmd"]:checked +*+*+*+*+ .cmd ~ .trigger { @content; }}
     @if ($symbol == "<") { &+*+*+ input[name^="cmd"]:checked +*+*+*+ .cmd ~ .trigger { @content; }}
     @if ($symbol == "+") { &+*+*+*+ input[name^="cmd"]:checked +*+*+ .cmd ~ .trigger { @content; }}
@@ -12,7 +20,32 @@
     @if ($symbol == "]") { &+*+*+*+*+*+ input[name^="cmd"]:checked + .cmd ~ .trigger { @content; }}
   }
 }
+@mixin symbol-is-not-bracket {
+  @include if-symbol-is-active( " " ) { @content; }
+  @include if-symbol-is-active( "<" ) { @content; }
+  @include if-symbol-is-active( "+" ) { @content; }
+  @include if-symbol-is-active( ">" ) { @content; }
+}
+@mixin symbol-is-bracket {
+  @include if-symbol-is-active( "[" ) { @content; }
+  @include if-symbol-is-active( "]" ) { @content; }
+}
 
+/**
+ * Functions to check if memory at current position is true or false
+ */
+@mixin memory-is( $state ) {
+  @if $state == true {
+    [name="p_v"]:checked + [name="p"]:checked {
+      @content;
+    }
+  }
+  @if $state == false {
+    [name="p_v"]:not(:checked) + [name="p"]:checked {
+      @content;
+    }
+  }
+}
 /**
  * When selected command is $symbol:
  *  First, select the memory trigger radio button with the label with class of $action-class
@@ -22,6 +55,7 @@
 @mixin memory-trigger( $symbol, $memory-trigger-id, $action-class, $command-class ) {
   #{$memory-trigger-id}:not(:focus) {
     @include if-symbol-is-active($symbol) {
+      .next:hover { @extend %force-next; }
       #{$command-class} {display: inline-block;}
     }
   }

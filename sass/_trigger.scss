@@ -1,30 +1,39 @@
 // Define the location of the trigger
 .trigger {
-// Hide all triggers by default except for indents
+  // Hide all triggers by default except for indents
   label:not([for^="i"]) { display: none; }
   position: absolute;
   left: 40px;
   bottom: 40px;
-  width: 100%;
   &.right {
     left: auto;
     right: 40px;
   }
-  .next { background: green; }
-  .prev { background: red; }
   label {
-    display: inline-block;
+    display: block;
+    float: left;
     width: $trigger-width;
     background: #cccccc;
+    // So that z-index works
+    position: relative;
     &:not([for^="i"]) {
       height: $trigger-height;
     }
   }
 }
 
+// Since the :active, :focused and :checked attributes are what we use to show Commands
+// We have to keep commands around until after they are fully clicked and we can move on to showing
+// the next action
+.trigger label:hover { display: inline-block !important;}
+
 // Show memory actions at the top
-[name="p"] + .trigger { z-index: 3; }
+[name="p"] + .trigger      { z-index: 3 !important; }
 // Show all global actions above the commands
-.global.trigger       { z-index: 2; }
+.global.trigger            { z-index: 2; }
 // Show the commands/indent information below everything else
-.cmd + .trigger       { z-index: 1; }
+.cmd + .trigger            { z-index: 4; }
+
+// If you're pressing on the radio button to go next, keep the action trigger on top
+[name="p_v"]:focus ~ .cmd + .trigger,
+[name="l"]:active ~ .cmd + .trigger { z-index: 4 !important; }

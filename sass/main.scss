@@ -1,16 +1,29 @@
-$font-family: "Roboto Mono";
+$font-family: inherit;
 $character-size: 24px;
 
 $trigger-height: 40px;
 $trigger-width: 100px;
 
-$indent: "[name=\"l\"]";
+// Selectors
+// TODO: Set all of the selector names here so that the code makes more sense
+$skip-block: ".sb";
 
 // Make things pretty. Everything will still work if this is commented out.
 @import 'style';
+
+// Functions used to make things simpler
+@import 'mixins';
 
 // Size & position of the "trigger".
 @import 'trigger';
 
 // Where the magic happens
 @import 'logic';
+
+*:not([contenteditable]) {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}

@@ -1,0 +1,48 @@
+#eb:checked {
+  @for $indent-level from 0 through 2 {
+    & ~ #i#{$indent-level}:checked{
+      @include symbol-is-not-bracket() {
+        [for="i#{$indent-level+1}"]:hover ~ .next {
+          @extend %force-next;
+        }
+        .next:hover { @extend %force-next; }
+      }
+      @include symbol-is-bracket() {
+        [for="i#{$indent-level}"]:hover ~ .next,
+        [for="i#{$indent-level - 1}"]:hover ~ .next {
+          @extend %force-next;
+          font-family: times;
+        }
+        .next:hover { @extend %force-next; }
+      }
+    }
+  }
+}
+#rb:checked {
+  @for $indent-level from 0 through 2 {
+    & ~ #i#{$indent-level}:checked{
+      @include symbol-is-not-bracket() {
+        [for="i#{$indent-level+1}"]:hover ~ .prev { display: block; }
+      }
+    }
+  }
+}
+
+@include memory-is(true){
+  @include if-symbol-is-active("[") {
+    z-index: 4;
+  }
+  @include if-symbol-is-active("]") {
+  .repeat-block { display: block; }
+  }
+}
+// If current memory value is 0 and symbol is "[" go to next command without
+// increasing scope level
+@include memory-is(false){
+  @include if-symbol-is-active("[") {
+    .next { @extend %force-next; }
+  }
+  @include if-symbol-is-active("]") {
+    .exit-block { display: block; }
+  }
+}

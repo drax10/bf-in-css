@@ -1,111 +1,76 @@
 body {
-  font-family: monospace;
-}
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
 
-input[name^=cmd], input[name=l], [name=p], [name=p_v] {
+h2 {
+  font-size: 16px; }
+
+[name="p"], [name="p_v"], input[name="l"], input[name^="cmd"] {
   position: absolute;
   left: 0;
-  top: 0;
-}
+  top: -20px; }
 
-.cmd, [name=p] + * + * {
+[name="p"] + * + *, .cmd {
   width: 24px;
   line-height: 24px;
-  font-family: "Roboto Mono";
+  font-family: inherit;
   text-align: center;
   vertical-align: top;
   display: inline-block;
   margin: -1px -3px;
-  border: solid 1px #f3f3f3;
-}
+  border: solid 1px #f3f3f3; }
 
-input[name=l]:checked + * + * + * + * + * + * + .cmd, [name=p]:checked + * + * {
-  background: #88f;
-}
+[name="p"]:checked + * + *, input[name="l"]:checked + * + * + * + * + * + * + .cmd {
+  background: #88f; }
 
-[name=p] + * + *:before {
-  content: "0";
-}
+[name="p"] + * + * {
+  cursor: pointer; }
+  [name="p"] + * + *:before {
+    content: '0'; }
+  [name="p"] + * + *:hover {
+    background: #cccccc; }
 
-[name=p_v]:checked + * + * + *:before {
-  content: "1";
-}
+[name="p_v"]:checked + * + * + *:before {
+  content: '1'; }
 
-input[name^=cmd]:checked + .cmd :nth-child(6), input[name^=cmd]:checked + * + .cmd :nth-child(5), input[name^=cmd]:checked + * + * + .cmd :nth-child(4), input[name^=cmd]:checked + * + * + * + .cmd :nth-child(3), input[name^=cmd]:checked + * + * + * + * + .cmd :nth-child(2), input[name^=cmd]:checked + * + * + * + * + * + .cmd :nth-child(1) {
+input[name^="cmd"]:checked + * + * + * + * + * + .cmd :nth-child(1), input[name^="cmd"]:checked + * + * + * + * + .cmd :nth-child(2), input[name^="cmd"]:checked + * + * + * + .cmd :nth-child(3), input[name^="cmd"]:checked + * + * + .cmd :nth-child(4), input[name^="cmd"]:checked + * + .cmd :nth-child(5), input[name^="cmd"]:checked + .cmd :nth-child(6) {
   display: block !important;
-  background: #cccccc;
-}
+  background: #cccccc; }
 
 .cmd label {
-  display: none;
-}
+  display: none; }
 .cmd:not(:hover) label {
-  background: transparent !important;
-}
+  background: transparent !important; }
 .cmd:hover {
   z-index: 1;
-  margin-bottom: -144px;
-}
-.cmd:hover label {
-  display: block;
-  background: #ffffff;
-}
-.cmd:hover label:hover {
-  background: #eeeeee;
-}
+  margin-bottom: -144px; }
+  .cmd:hover label {
+    display: block;
+    background: #ffffff; }
+    .cmd:hover label:hover {
+      background: #eeeeee; }
 
-.trigger {
-  position: absolute;
-  left: 40px;
-  bottom: 40px;
-  width: 100%;
-}
-.trigger label:not([for^=i]) {
-  display: none;
-}
-.trigger.right {
-  left: auto;
-  right: 40px;
-}
 .trigger .next {
-  background: green;
-}
+  background: green; }
 .trigger .prev {
-  background: red;
-}
-.trigger label {
-  display: inline-block;
-  width: 100px;
-  background: #cccccc;
-}
-.trigger label:not([for^=i]) {
-  height: 40px;
-}
+  background: purple; }
+.trigger [for^="i"] {
+  background: yellow; }
+.trigger .sb {
+  background: orange; }
 
-[name=p] + .trigger {
-  z-index: 3;
-}
+.global.trigger label {
+  background: red; }
 
-.global.trigger {
-  z-index: 2;
-}
-
-.cmd + .trigger {
-  z-index: 1;
-}
-
-[name=l]:not(:checked) + * + * + * + * + * + * + * + .trigger {
-  display: none;
-}
-
-[name=p]:not(:checked) + .trigger {
-  display: none;
-}
-
+/**
+ * Use to call logic mixins without needing to fit them in a condition
+ */
 /**
  * Will apply style rules to trigger if the symbol given to mixin is currently active
  * Must be called within another condition
  * ex: #mt1:checked { @include if-symbol-is-active(">"){ ... }
+ */
+/**
+ * Functions to check if memory at current position is true or false
  */
 /**
  * When selected command is $symbol:
@@ -113,134 +78,217 @@ input[name^=cmd]:checked + .cmd :nth-child(6), input[name^=cmd]:checked + * + .c
  *  Second, when the memory trigger is focused on, show the label to preform the memory action
  *  Finally, while the memory trigger is checked, dont show the option to check it.
  */
+.trigger {
+  position: absolute;
+  left: 40px;
+  bottom: 40px; }
+  .trigger label:not([for^="i"]) {
+    display: none; }
+  .trigger.right {
+    left: auto;
+    right: 40px; }
+  .trigger label {
+    display: block;
+    float: left;
+    width: 100px;
+    background: #cccccc;
+    position: relative; }
+    .trigger label:not([for^="i"]) {
+      height: 40px; }
+
+[name="p"] + .trigger {
+  z-index: 3 !important; }
+
+.global.trigger {
+  z-index: 2; }
+
+.cmd + .trigger {
+  z-index: 4; }
+
+[name="l"]:not(:checked) + * + * + * + * + * + * + * + .trigger {
+  display: none; }
+
+[name="p"]:not(:checked) + .trigger {
+  display: none; }
+
 body {
-  counter-reset: bracket-level 1;
-}
+  counter-reset: bracket-level 1; }
 
-[name=indent][id$="0"]:checked ~ .trigger:not(.global) {
-  margin-left: 0px;
-}
-
-[for=i0]::before {
-  left: 0px;
-  margin-right: 0px;
-}
-
-[name=indent][id$="1"]:checked ~ .trigger:not(.global) {
-  margin-left: -100px;
-}
-
-[for=i1]::before {
-  left: -100px;
-  margin-right: -100px;
-}
-
-[name=indent][id$="2"]:checked ~ .trigger:not(.global) {
-  margin-left: -200px;
-}
-
-[for=i2]::before {
-  left: -200px;
-  margin-right: -200px;
-}
-
-[name=indent][id$="3"]:checked ~ .trigger:not(.global) {
+.sb:hover ~ .next, #eb:checked ~ #i0:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .next, #eb:checked ~ #i0:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .next, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .next, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger [for="i1"]:hover ~ .next, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i0"]:hover ~ .next,
+#eb:checked ~ #i0:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i-1"]:hover ~ .next, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i0"]:hover ~ .next,
+#eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i-1"]:hover ~ .next, #eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger .next:hover, #eb:checked ~ #i1:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .next, #eb:checked ~ #i1:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .next, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .next, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger [for="i2"]:hover ~ .next, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .next,
+#eb:checked ~ #i1:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i0"]:hover ~ .next, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i1"]:hover ~ .next,
+#eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i0"]:hover ~ .next, #eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger .next:hover, #eb:checked ~ #i2:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger [for="i3"]:hover ~ .next, #eb:checked ~ #i2:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger [for="i3"]:hover ~ .next, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger [for="i3"]:hover ~ .next, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger [for="i3"]:hover ~ .next, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .next,
+#eb:checked ~ #i2:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .next, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger .next:hover, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i2"]:hover ~ .next,
+#eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i1"]:hover ~ .next, #eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger .next:hover, [name="p_v"]:not(:checked) + [name="p"]:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger .next, #mt1:not(:focus) ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger .next:hover, #mt2:not(:focus) ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger .next:hover, #mt3:not(:focus) ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger .next:hover {
+  display: block;
+  width: 400px;
   margin-left: -300px;
-}
+  z-index: 4; }
 
-[for=i3]::before {
+[name="indent"][id$="0"]:checked ~ .trigger:not(.global) {
+  margin-left: -100px; }
+
+[for="i0"]::before {
+  left: 0px;
+  margin-right: 0px; }
+
+[name="indent"][id$="1"]:checked ~ .trigger:not(.global) {
+  margin-left: -200px; }
+
+[for="i1"]::before {
+  left: -100px;
+  margin-right: -100px; }
+
+[name="indent"][id$="2"]:checked ~ .trigger:not(.global) {
+  margin-left: -300px; }
+
+[for="i2"]::before {
+  left: -200px;
+  margin-right: -200px; }
+
+[name="indent"][id$="3"]:checked ~ .trigger:not(.global) {
+  margin-left: -400px; }
+
+[for="i3"]::before {
   left: -300px;
-  margin-right: -300px;
-}
+  margin-right: -300px; }
 
-.trigger label[for^=i] {
+.trigger [for^="i"], .trigger .sb {
   line-height: 40px;
   max-width: 100px;
   width: auto;
-  overflow: hidden;
-  background: #ccc;
-}
+  overflow: hidden; }
 
-.cmd + .trigger [for^=i]::before {
+.cmd + .trigger [for^="i"]::before,
+.cmd + .trigger .sb::before {
   position: relative;
   font-size: 0;
-  content: counter(bracket-level, lower-roman);
+  content: counter(bracket-level,lower-roman);
   letter-spacing: 100px;
   display: block;
-  height: 40px;
-}
+  height: 40px; }
 
-[id^=v][id$="-1"]:checked {
-  counter-increment: bracket-level 10;
-}
+.sb {
+  position: absolute !important;
+  left: -100px !important;
+  display: block !important;
+  max-width: none !important; }
 
-[id^=v][id$="-5"]:checked {
-  counter-increment: bracket-level -10;
-}
+[id^="v"][id$="-1"]:checked {
+  counter-increment: bracket-level 10; }
 
-[contenteditable]:not([name=l]):focus ~ .trigger .next {
-  display: inline-block;
-}
+[id^="v"][id$="-5"]:checked {
+  counter-increment: bracket-level -10; }
 
-.trigger label:hover {
-  display: inline-block !important;
-}
+#eb:checked ~ #i0:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i0"]:hover ~ .next,
+#eb:checked ~ #i0:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i-1"]:hover ~ .next {
+  font-family: times; }
+#eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i0"]:hover ~ .next,
+#eb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i-1"]:hover ~ .next {
+  font-family: times; }
+#eb:checked ~ #i1:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .next,
+#eb:checked ~ #i1:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i0"]:hover ~ .next {
+  font-family: times; }
+#eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i1"]:hover ~ .next,
+#eb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i0"]:hover ~ .next {
+  font-family: times; }
+#eb:checked ~ #i2:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .next,
+#eb:checked ~ #i2:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .next {
+  font-family: times; }
+#eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i2"]:hover ~ .next,
+#eb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger [for="i1"]:hover ~ .next {
+  font-family: times; }
 
-[name=l]:focus ~ .trigger .memory-noop {
-  display: inline-block;
-}
+#rb:checked ~ #i0:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger [for="i1"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i0:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger [for="i1"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i1:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger [for="i2"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i1:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger [for="i2"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i2:checked ~ [name="l"]:checked + input[name^="cmd"]:checked + * + * + * + * + * + .cmd ~ .trigger [for="i3"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger [for="i3"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger [for="i3"]:hover ~ .prev {
+  display: block; }
+#rb:checked ~ #i2:checked ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger [for="i3"]:hover ~ .prev {
+  display: block; }
+
+[name="p_v"]:checked + [name="p"]:checked ~ [name="l"]:checked + * + input[name^="cmd"]:checked + * + * + * + * + .cmd ~ .trigger {
+  z-index: 4; }
+[name="p_v"]:checked + [name="p"]:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger .repeat-block {
+  display: block; }
+
+[name="p_v"]:not(:checked) + [name="p"]:checked ~ [name="l"]:checked + * + * + * + * + * + input[name^="cmd"]:checked + .cmd ~ .trigger .exit-block {
+  display: block; }
 
 #mt0:focus ~ .trigger.global {
-  display: none;
-}
+  display: none; }
 
-#mt1:not(:focus) ~ [name=l]:checked + * + * + input[name^=cmd]:checked + * + * + * + .cmd ~ .trigger .memory-prev {
-  display: inline-block;
-}
+#mt1:not(:focus) ~ [name="l"]:checked + * + * + input[name^="cmd"]:checked + * + * + * + .cmd ~ .trigger .memory-prev {
+  display: inline-block; }
 
 #mt1:focus ~ .trigger .prev-p {
-  display: inline-block;
-}
+  display: inline-block; }
 
 #mt1:checked ~ .trigger .memory-prev {
-  display: none !important;
-}
+  display: none !important; }
 
-#mt2:not(:focus) ~ [name=l]:checked + * + * + * + input[name^=cmd]:checked + * + * + .cmd ~ .trigger .toggle {
-  display: inline-block;
-}
+#mt2:not(:focus) ~ [name="l"]:checked + * + * + * + input[name^="cmd"]:checked + * + * + .cmd ~ .trigger .toggle {
+  display: inline-block; }
 
 #mt2:focus ~ .trigger .flip {
-  display: inline-block;
-}
+  display: inline-block; }
 
 #mt2:checked ~ .trigger .toggle {
-  display: none !important;
-}
+  display: none !important; }
 
-#mt3:not(:focus) ~ [name=l]:checked + * + * + * + * + input[name^=cmd]:checked + * + .cmd ~ .trigger .memory-next {
-  display: inline-block;
-}
+#mt3:not(:focus) ~ [name="l"]:checked + * + * + * + * + input[name^="cmd"]:checked + * + .cmd ~ .trigger .memory-next {
+  display: inline-block; }
 
 #mt3:focus ~ .trigger .next-p {
-  display: inline-block;
-}
+  display: inline-block; }
 
 #mt3:checked ~ .trigger .memory-next {
-  display: none !important;
-}
+  display: none !important; }
 
-[name=l]:focus ~ .trigger .memory-noop {
-  display: inline-block !important;
-}
+[name="l"]:focus ~ .trigger .memory-noop {
+  display: inline-block !important; }
 
-[name=p_v]:focus ~ .trigger .toggle, [name=p]:focus ~ .trigger .toggle {
-  display: none !important;
-}
+[name="p_v"]:focus ~ .trigger .toggle, [name="p"]:focus ~ .trigger .toggle {
+  display: none !important; }
 
-[name=p_v]:focus ~ .cmd + .trigger,
-[name=l]:active ~ .cmd + .trigger {
-  z-index: 4 !important;
-}
+[contenteditable]:not([name="l"]):not(#mt0):focus ~ .trigger {
+  z-index: 1; }
+  [contenteditable]:not([name="l"]):not(#mt0):focus ~ .trigger .next {
+    display: block; }
+
+.trigger label:hover {
+  display: inline-block !important; }
+
+[name="l"]:focus ~ .trigger .memory-noop {
+  display: inline-block; }
+
+[name="p_v"]:focus ~ .cmd + .trigger,
+[name="l"]:active ~ .cmd + .trigger {
+  z-index: 4 !important; }
+
+*:not([contenteditable]) {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none; }
 
 /*# sourceMappingURL=main.css.map */

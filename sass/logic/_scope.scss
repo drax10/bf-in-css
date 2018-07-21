@@ -4,25 +4,31 @@ body {
   counter-reset: bracket-level 1;
 }
 
+%force-next {
+  display: block;
+  width: $trigger-width * 4;
+  margin-left: -3 * $trigger-width;
+  z-index: 4;
+}
+
 @for $indent-level from 0 through 3 {
   [name="indent"][id$="#{$indent-level}"]:checked~.trigger:not(.global) {
-    margin-left: -1 * $trigger-width * ($indent-level );
+    margin-left: -1 * $trigger-width * ($indent-level + 1);
   }
   [for="i#{$indent-level}"]::before {
     left: -1 * $trigger-width * ($indent-level);
     margin-right: -1 * $trigger-width * ($indent-level);
   }
 }
-.trigger label[for^="i"] {
+.trigger [for^="i"], .trigger #{$skip-block} {
   line-height: $trigger-height;
   max-width: $trigger-width;
   width: auto;
   overflow: hidden;
-  // XXX Should this be somewhere else?
-  background: #ccc;
 }
 
-.cmd + .trigger [for^="i"]::before {
+.cmd + .trigger [for^="i"]::before,
+.cmd + .trigger #{$skip-block}::before {
   position: relative;
   font-size: 0;
   content: counter(bracket-level, lower-roman);
@@ -30,9 +36,18 @@ body {
   display: block;
   height: $trigger-height;
 }
+#{$skip-block} {
+    position: absolute !important;
+    left: -1 * $trigger-width !important;
+    display: block !important;
+    max-width: none !important;
+    &:hover {
+      & ~ .next { @extend %force-next; }
+    }
+}
 
-// Open Bracket
+// Open Brackets increase block level by 1
 [id^="v"][id$="-1"]:checked { counter-increment: bracket-level 10; }
 
-// Close Bracket
+// Close Brackets decrease block level by 1
 [id^="v"][id$="-5"]:checked { counter-increment: bracket-level -10; }
