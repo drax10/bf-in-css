@@ -27,12 +27,12 @@
 // the next action
 .trigger label:hover { display: inline-block !important;}
 
+// Show the commands/indent information below everything else
+.cmd + .trigger            { z-index: 4; }
 // Show memory actions at the top
 [name="p"] + .trigger      { z-index: 3 !important; }
 // Show all global actions above the commands
 .global.trigger            { z-index: 2; }
-// Show the commands/indent information below everything else
-.cmd + .trigger            { z-index: 4; }
 
 // If you're pressing on the radio button to go next, keep the action trigger on top
 [name="p_v"]:focus ~ .cmd + .trigger,

@@ -21,7 +21,7 @@
   }
 }
 @mixin symbol-is-not-bracket {
-  @include if-symbol-is-active( " " ) { @content; }
+  // @include if-symbol-is-active( " " ) { @content; }
   @include if-symbol-is-active( "<" ) { @content; }
   @include if-symbol-is-active( "+" ) { @content; }
   @include if-symbol-is-active( ">" ) { @content; }

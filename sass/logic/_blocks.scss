@@ -11,7 +11,6 @@
         [for="i#{$indent-level}"]:hover ~ .next,
         [for="i#{$indent-level - 1}"]:hover ~ .next {
           @extend %force-next;
-          font-family: times;
         }
         .next:hover { @extend %force-next; }
       }
@@ -22,27 +21,88 @@
   @for $indent-level from 0 through 2 {
     & ~ #i#{$indent-level}:checked{
       @include symbol-is-not-bracket() {
-        [for="i#{$indent-level+1}"]:hover ~ .prev { display: block; }
+        [for="i#{$indent-level+1}"]:hover ~ .prev {
+          @extend %force-next;
+        }
+        .prev:hover { @extend %force-next; }
+      }
+      @include symbol-is-bracket() {
+        [for="i#{$indent-level}"]:hover ~ .prev,
+        [for="i#{$indent-level - 1}"]:hover ~ .prev {
+          @extend %force-next;
+        }
+        .prev:hover { @extend %force-next; }
       }
     }
   }
 }
 
-@include memory-is(true){
-  @include if-symbol-is-active("[") {
-    z-index: 4;
-  }
-  @include if-symbol-is-active("]") {
-  .repeat-block { display: block; }
+@include memory-is(false){
+  & ~ #eb:checked {
+    @include if-symbol-is-active("[") {
+      .next { @extend %force-next; }
+    }
   }
 }
+
+
 // If current memory value is 0 and symbol is "[" go to next command without
 // increasing scope level
 @include memory-is(false){
-  @include if-symbol-is-active("[") {
-    .next { @extend %force-next; }
+  &~#eb:checked {
+    @include if-symbol-is-active("[") {
+      .next { @extend %force-next; }
+    }
   }
+  &~#rb:checked {
+    @include if-symbol-is-active("[") {
+      .prev { @extend %force-next; }
+    }
+  }
+}
+
+// XXX Find better places to organize this
+
+// If we've indented to the right, set exit-block to true before continuing on to the next command
+[name="indent"]:focus {
+    @include if-symbol-is-active("[") {
+        .next, .prev { display: none !important; }
+        .exit-block { display: block; }
+    }
+}
+// Once we've done that, hide the exit-block option
+#eb:focus ~ .trigger .exit-block { display: none !important; }
+#rb:focus ~ .trigger .repeat-block { display: none !important; }
+
+// Indent Left when "]" is the active symbol
+@include do {
   @include if-symbol-is-active("]") {
-    .exit-block { display: block; }
+    // Go to next action imediatly if we cant unindent
+    .next {display: block;}
+    // Shift the indent triggers right so that they decrease the level instead of increasing it
+    [for^="i"]{left: 200px;}
+    &.global { z-index: 4; }
   }
+}
+@include memory-is(true) {
+  & ~ [name="indent"]:focus {
+    @include if-symbol-is-active("]") {
+      .next, .prev { display: none !important; }
+      .repeat-block { display: block; }
+    }
+  }
+}
+@include memory-is(false) {
+  & ~ [name="indent"]:focus {
+    @include if-symbol-is-active("]") {
+      .next, .prev { display: none !important; }
+      .exit-block { display: block; }
+    }
+  }
+}
+#eb:focus ~ .trigger .next {
+  display: block !important;
+}
+#rb:focus ~ .trigger .prev {
+  display: block !important;
 }

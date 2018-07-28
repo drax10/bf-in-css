@@ -27,3 +27,52 @@ $skip-block: ".sb";
   -webkit-user-select: none;
   -o-user-select: none;
 }
+
+// XXX: Saving work
+
+// @mixin if-symbol-is-active( $symbol ) {
+//   & ~ [name="l"]:checked {
+//     @if ($symbol == " ") { &+ input[name^="cmd"]:checked +*+*+*+*+*+ .cmd ~ .trigger { @content; }}
+//     @if ($symbol == "[") { &+*+ input[name^="cmd"]:checked +*+*+*+*+ .cmd ~ .trigger { @content; }}
+//     @if ($symbol == "<") { &+*+*+ input[name^="cmd"]:checked +*+*+*+ .cmd ~ .trigger { @content; }}
+//     @if ($symbol == "+") { &+*+*+*+ input[name^="cmd"]:checked +*+*+ .cmd ~ .trigger { @content; }}
+//     @if ($symbol == ">") { &+*+*+*+*+ input[name^="cmd"]:checked +*+ .cmd ~ .trigger { @content; }}
+//     @if ($symbol == "]") { &+*+*+*+*+*+ input[name^="cmd"]:checked + .cmd ~ .trigger { @content; }}
+//   }
+// }
+//
+// %force-next {
+//   display: block;
+//   width: 100px * 4;
+//   margin-left: -3 * 100px;
+//   z-index: 4;
+// }
+//
+// #eb:focus,
+// #rb:focus,
+// [name="indent"]:focus {
+//   @include if-symbol-is-active("[") {
+//     .exit-block { display: block !important; }
+//     .next {
+//       display: none !important;
+//       // @extend %force-next;
+//     }
+//   }
+//   @include if-symbol-is-active("]"){
+//     margin-left: 0 !important;
+//     [for^="i"] { width: 100px !important; }
+//     .next, .sb { display: none !important; }
+//   }
+// }
+// #eb:focus ~ .trigger {
+//   .exit-block { display: none !important; }
+// }
+// #rb:focus ~ .trigger {
+//   .repeat-block { display: none !important; }
+// }
+//
+// [name="indent"]:focus ~ .trigger {
+//   // Change to prev if repeat-block
+//   .next { display: block; }
+//   &.global { display: none; }
+// }

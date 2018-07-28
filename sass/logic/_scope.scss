@@ -6,9 +6,10 @@ body {
 
 %force-next {
   display: block;
-  width: $trigger-width * 4;
-  margin-left: -3 * $trigger-width;
+  width: $trigger-width * 4 !important;
+  margin-left: -3 * $trigger-width !important;
   z-index: 4;
+  background: black;
 }
 
 @for $indent-level from 0 through 3 {
@@ -41,10 +42,9 @@ body {
     left: -1 * $trigger-width !important;
     display: block !important;
     max-width: none !important;
-    &:hover {
-      & ~ .next { @extend %force-next; }
-    }
 }
+#eb:checked ~ .trigger #{$skip-block}:hover ~ .next { @extend %force-next;  }
+#rb:checked ~ .trigger #{$skip-block}:hover ~ .prev { @extend %force-next;  }
 
 // Open Brackets increase block level by 1
 [id^="v"][id$="-1"]:checked { counter-increment: bracket-level 10; }

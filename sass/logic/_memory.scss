@@ -1,11 +1,9 @@
 // TODO: Should I actually specify each contenteditable that triggers a next move?
 // If we've just done something (excluding setting noop or changing the block scope)
 //   Continue on to the next action
-[contenteditable]:not([name="l"]):not(#mt0):focus ~ .trigger{
+[contenteditable]:not([name="l"]):not([name="indent"]):not(#mt0):focus ~ .trigger{
   z-index: 1;
-  .next {
-    display: block;
-  }
+  .next { display: block; }
 }
 
 // On "noop", dont show any memory trigger actions
