@@ -1,4 +1,4 @@
-const program = ">>>";
+const program = "+[>+]";
 const initialMemory = ""
 
 const fillList = (size, fillWith) => [...Array(size)].map(()=>fillWith);
