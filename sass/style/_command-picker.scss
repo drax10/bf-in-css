@@ -27,6 +27,7 @@ input[name="l"]:checked+*+*+*+*+*+*+.cmd { @extend %active-character; }
   &:not(:hover) label { background: transparent !important; }
   &:hover {
     z-index: 1;
+    position: relative;
     margin-bottom: -6 * $character-size;
     label {
       display: block;

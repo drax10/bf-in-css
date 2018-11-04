@@ -6,9 +6,6 @@
   .next { display: block; }
 }
 
-// On "noop", dont show any memory trigger actions
-#mt0:focus ~ .trigger.global { display: none; }
-
 @include memory-trigger("<", "#mt1", ".prev-p", ".memory-prev");
 @include memory-trigger("+", "#mt2", ".flip", ".toggle");
 @include memory-trigger(">", "#mt3", ".next-p", ".memory-next");
@@ -23,3 +20,6 @@
 
 // Every new action, reset the memory triggers
 [name="l"]:focus ~ .trigger .memory-noop { display: inline-block; }
+
+// On "noop", dont keep the noop action around
+#mt0:focus ~ .trigger .memory-noop { display: none !important; }

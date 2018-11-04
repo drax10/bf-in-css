@@ -61,7 +61,7 @@
   }
 }
 
-// XXX Find better places to organize this
+// XXX Find better places to organize this:
 
 // If we've indented to the right, set exit-block to true before continuing on to the next command
 [name="indent"]:focus {
@@ -80,7 +80,7 @@
     // Go to next action imediatly if we cant unindent
     .next {display: block;}
     // Shift the indent triggers right so that they decrease the level instead of increasing it
-    [for^="i"]{left: 200px;}
+    [for^="i"]{left: $trigger-width * 2;}
     &.global { z-index: 4; }
   }
 }
