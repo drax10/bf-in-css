@@ -1,0 +1,25 @@
+{
+  "name": "bf-in-css",
+  "version": "1.0.0",
+  "description": "Brainfuck Compiler Written Exclusively with CSS &amp; HTML",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir public; npm-sass ./sass/main.scss > ./public/app.css; node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoshuaDraxten/bf-in-css.git"
+  },
+  "author": "Joshua Draxten",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoshuaDraxten/bf-in-css/issues"
+  },
+  "homepage": "https://github.com/JoshuaDraxten/bf-in-css#readme",
+  "dependencies": {
+    "handlebars": "^4.0.12",
+    "npm-sass": "^2.3.0"
+  },
+  "devDependencies": {}
+}

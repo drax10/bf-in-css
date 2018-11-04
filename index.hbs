@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>BF in CSS</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <h2 id="first-element">Memory Triggers:</h2>
+  <input contenteditable="" type="radio" name="mt" id="mt0" checked> Noop
+  <input contenteditable="" type="radio" name="mt" id="mt1"> &lt;
+  <input contenteditable="" type="radio" name="mt" id="mt2"> +
+  <input contenteditable="" type="radio" name="mt" id="mt3"> &gt;
+
+  <h2>Memory: <label for="p0" style="color: blue">reset</label></h2>
+  {{#each memory}}
+    <input contenteditable="" type="checkbox" name="p_v" id="p_v{{@index}}">
+    <input contenteditable="" type="radio" name="p" id="p{{@index}}" {{#if (isEqual @index 0)}}checked{{/if}}>
+    <div class="trigger">
+      <label for="p{{add @index -1}}" class="prev-p"></label>
+      <label for="p{{add @index 1}}" class="next-p"></label>
+      <label for="p_v{{@index}}" class="flip"></label>
+    </div>
+    <label for="p_v{{@index}}"></label>
+  {{/each}}
+
+  <h2>Block:</h2>
+  <b>State: </b>
+  <input contenteditable="" type="radio" name="loop-state" id="eb" checked> exit block
+  <input contenteditable="" type="radio" name="loop-state" id="rb"> repeat block
+  <br />
+  <b>Level: </b>
+  <input contenteditable="" type="radio" name="indent" id="i0" checked>
+  <input contenteditable="" type="radio" name="indent" id="i1">
+  <input contenteditable="" type="radio" name="indent" id="i2">
+  <input contenteditable="" type="radio" name="indent" id="i3">
+  <h2>Commands: <label for="l0" style="color: blue">restart</label></h2>
+  {{#each commands}}
+    <input contenteditable="" type="radio" name="l" id="l{{@index}}"{{#if (isEqual @index 0)}} checked{{/if}}>
+    <input name="cmd-{{@index}}" id="v{{@index}}-0" type="radio"{{#if (isEqual this "")}} checked{{/if}}/>
+    <input name="cmd-{{@index}}" id="v{{@index}}-1" type="radio"{{#if (isEqual this "[")}} checked{{/if}}/>
+    <input name="cmd-{{@index}}" id="v{{@index}}-2" type="radio"{{#if (isEqual this "<")}} checked{{/if}}/>
+    <input name="cmd-{{@index}}" id="v{{@index}}-3" type="radio"{{#if (isEqual this "+")}} checked{{/if}}/>
+    <input name="cmd-{{@index}}" id="v{{@index}}-4" type="radio"{{#if (isEqual this ">")}} checked{{/if}}/>
+    <input name="cmd-{{@index}}" id="v{{@index}}-5" type="radio"{{#if (isEqual this "]")}} checked{{/if}}/>
+    <div class="cmd">
+      <label for="v{{@index}}-0">&nbsp;</label>
+      <label for="v{{@index}}-1">[</label>
+      <label for="v{{@index}}-2">&lt;</label>
+      <label for="v{{@index}}-3">+</label>
+      <label for="v{{@index}}-4">&gt;</label>
+      <label for="v{{@index}}-5">]</label>
+      <label for="l{{@index}}">@</label>
+    </div>
+    <div class="trigger">
+      <label for="i0"></label>
+      <label for="i1"></label>
+      <label for="i2"></label>
+      <label for="i3"></label>
+      <label class="sb"></label>
+      <label for="l{{add @index -1}}" class="prev"></label>
+      <label for="l{{add @index 1}}" class="next"></label>
+    </div>
+  {{/each}}
+  {{! Global actions }}
+  <div class="trigger global">
+    <label for="mt0" class="memory-noop"></label>
+    <label for="mt1" class="memory-prev"></label>
+    <label for="mt2" class="toggle"></label>
+    <label for="mt3" class="memory-next"></label>
+    <label for="eb" class="exit-block"></label>
+    <label for="rb" class="repeat-block"></label>
+  </div>
+</body>
+</html>
