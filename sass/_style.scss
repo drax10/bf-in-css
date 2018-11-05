@@ -44,3 +44,17 @@ h2 {
   #{$skip-block} { background: orange; }
 }
 .global.trigger label { background: red; }
+
+.view-on-github {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  text-decoration: none;
+  color: #000000;
+  * {
+    vertical-align: middle;
+  }
+  &:hover {
+    color: #2222ff;
+  }
+}
