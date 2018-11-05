@@ -1,8 +1,8 @@
 # Brainf\*\*\* interpreter using CSS + HTML
 
-A BF interpreter written in HTML and CSS that you can try out [here](TODO PUT LINK HERE). The catch is that you need to click in the same spot repeatedly to keep it running. If you’re unfamiliar with what BF is take a look at [its very short Wikipedia page](https://en.m.wikipedia.org/wiki/Brainfuck).
+A BF interpreter written in HTML and CSS that you can try out [here](https://bf-in-css.netlify.com). The catch is that you need to click in the same spot repeatedly to keep it running. If you’re unfamiliar with what BF is take a look at [its very short Wikipedia page](https://en.m.wikipedia.org/wiki/Brainfuck).
 
-![Screen Capture of the interpreter](https://raw.githubusercontent.com/joshuadraxten/bf-in-css/assets/screencap.gif)
+![Screen Capture of the interpreter](https://raw.githubusercontent.com/JoshuaDraxten/bf-in-css/master/assets/screencap.gif?token=AE6foatE8ZldADpqXtvTTPuYnEHLPF9uks5b6OftwA%3D%3D)
 
 ⚠️  Please note that because of the CSS hacks in use, clicking too fast can break the program completely.
 
