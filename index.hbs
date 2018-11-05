@@ -6,13 +6,15 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
-  <h2 id="first-element">Memory Triggers:</h2>
+  <div id="first-element"></div>
+
+  <h2>💾  Memory:</h2>
+  <b>Operation: </b>
   <input contenteditable="" type="radio" name="mt" id="mt0" checked> Noop
   <input contenteditable="" type="radio" name="mt" id="mt1"> &lt;
   <input contenteditable="" type="radio" name="mt" id="mt2"> +
   <input contenteditable="" type="radio" name="mt" id="mt3"> &gt;
-
-  <h2>Memory: <label for="p0" style="color: blue">reset</label></h2>
+  <div style="clear: both; height: 0.5em;"></div>
   {{#each memory}}
     <input contenteditable="" type="checkbox" name="p_v" id="p_v{{@index}}">
     <input contenteditable="" type="radio" name="p" id="p{{@index}}" {{#if (isEqual @index 0)}}checked{{/if}}>
@@ -23,8 +25,9 @@
     </div>
     <label for="p_v{{@index}}"></label>
   {{/each}}
+  <label for="p0" style="color: blue; margin-top: 12px; display: block;">Reset to first cell in tape</label>
 
-  <h2>Block:</h2>
+  <h2>🔭  Code Scope:</h2>
   <b>State: </b>
   <input contenteditable="" type="radio" name="loop-state" id="eb" checked> exit block
   <input contenteditable="" type="radio" name="loop-state" id="rb"> repeat block
@@ -34,7 +37,7 @@
   <input contenteditable="" type="radio" name="indent" id="i1">
   <input contenteditable="" type="radio" name="indent" id="i2">
   <input contenteditable="" type="radio" name="indent" id="i3">
-  <h2>Commands: <label for="l0" style="color: blue">restart</label></h2>
+  <h2>👨🏻‍💻 Commands:</h2>
   {{#each commands}}
     <input contenteditable="" type="radio" name="l" id="l{{@index}}"{{#if (isEqual @index 0)}} checked{{/if}}>
     <input name="cmd-{{@index}}" id="v{{@index}}-0" type="radio"{{#if (isEqual this "")}} checked{{/if}}/>
@@ -71,5 +74,8 @@
     <label for="eb" class="exit-block"></label>
     <label for="rb" class="repeat-block"></label>
   </div>
+  <div class="trigger-mask left"></div>
+  <div class="trigger-mask behind"></div>
+  <div class="trigger-mask right"></div>
 </body>
 </html>

@@ -1,0 +1,33 @@
+.trigger-mask {
+    position: absolute;
+    bottom: 0;
+    background: rgba(255,255,255,0.8);
+    z-index: 10;
+    height: 120px;
+    line-height: 120px;
+    &.left {
+        left: 0;
+        width: calc( 40px + 100% );
+        margin-left: -100%;
+    }
+    &.behind {
+        z-index: 0;
+        left: 40px;
+        width: 100px;
+        &:before {
+          text-align: center;
+          display: block;
+          font-weight: 900;
+          content: "HALTED";
+        }
+    }
+    &.right {
+        left: 140px;
+        width: 100%;
+        &:before {
+            padding: 20px;
+            font-size: 24px;
+            content: "⬅️🖱 Click here to perform next operation";
+        }
+    }
+}
