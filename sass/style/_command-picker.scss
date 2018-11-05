@@ -26,10 +26,11 @@ input[name="l"]:checked+*+*+*+*+*+*+.cmd { @extend %active-character; }
   // Don't highlight the selected command if we're not selecting one
   &:not(:hover) label { background: transparent !important; }
   &:hover {
-    z-index: 1;
+    z-index: 20;
     position: relative;
     margin-bottom: -6 * $character-size;
     label {
+      z-index: 20;
       display: block;
       background: #ffffff;
       &:hover{ background: #eeeeee; }
