@@ -18,8 +18,7 @@
   },
   "homepage": "https://github.com/JoshuaDraxten/bf-in-css#readme",
   "dependencies": {
-    "handlebars": "^4.0.12",
-    "npm-sass": "^2.3.0"
-  },
-  "devDependencies": {}
+    "handlebars": "^4.7.8",
+    "npm-sass": "^3.1.0"
+  }
 }
